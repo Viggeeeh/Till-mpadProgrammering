@@ -29,18 +29,18 @@ class Product:
             reader = csv.DictReader(file)
             for row in reader:
                 id = int(row["id"])
-                name = row["name"]
-                desc = row["desc"]
+                name = str(row["name"])
+                desc = str(row["desc"])
                 price = float(row["price"])
                 quantity = int(row["quantity"])
             
                 add_to_dictionary(id, name, desc, price, quantity)
 
     def save_items(self):
-        with open(self.file_name, "w") as file:
-            fieldnames = products[0].keys()
+        with open(self.file_name, "w", newline="") as file:
+            fieldnames = ["id", "name", "desc", "price", "quantity"]
             writer = csv.DictWriter(file, fieldnames=fieldnames)
-    
+            
             for row in products:
                 writer.writerow(row)  
 
