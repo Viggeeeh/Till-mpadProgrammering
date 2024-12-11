@@ -89,7 +89,7 @@ class Product:
                 print(f"| {str(product['id'])[:4]:4}| {product_name:23}| {product_desc:46} | {str(product['price'])[:10]:10} | {str(product['quantity'])[:8]:8} |")
 
         print("""=========================================================================================================
-\nAlternativ: [L] Lägg till | [T] Ta bort | [Ä] Ändra | [Q] Avsluta""")
+\nAlternativ: [L] Lägg till | [Enter] för att välja | [Q] Avsluta""")
 
     def import_items(self):
         # Öppna filen och importera items
