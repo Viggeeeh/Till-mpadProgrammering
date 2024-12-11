@@ -1,3 +1,9 @@
+# INVENTORY.PY: Här är hela programmet
+
+# __author__  = "Viggo Öfors"
+# __version__ = "1.0.0"
+# __email__   = "viggo.ofors@elev.ga.ntig.se"
+
 from msvcrt import getwch
 from pynput import keyboard
 from colors import Color

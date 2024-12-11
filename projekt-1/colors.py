@@ -1,5 +1,10 @@
+# COLOR.PY: Här är färger till programmet
+
+# __author__  = "Viggo Öfors"
+# __version__ = "1.0.0"
+# __email__   = "viggo.ofors@elev.ga.ntig.se"
+
 class Color:
-    # ANSI escape codes for text colors
     PURPLE = '\033[95m'
     BLUE = '\033[94m'
     CYAN = '\033[96m'
@@ -8,7 +13,6 @@ class Color:
     RED = '\033[91m'
     DEFAULT = '\033[0m'
     
-    # ANSI escape codes for background colors
     BG_PURPLE = '\033[45m'
     BG_BLUE = '\033[44m'
     BG_CYAN = '\033[46m'
@@ -17,6 +21,5 @@ class Color:
     BG_RED = '\033[41m'
     BG_DEFAULT = '\033[49m'
     
-    # Text styles
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
