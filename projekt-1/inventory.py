@@ -16,9 +16,15 @@ class Product:
         self.file_name = file_name
     
     def add_item(self):
-        max_id_product = max(products, key=lambda id: id["id"])
-        max_id = max_id_product["id"]
-        new_id = max_id + 1
+        try:
+            # Om det redan finns produkter i listan
+            max_id_product = max(products, key=lambda id: id["id"])
+            max_id = max_id_product["id"]
+            new_id = max_id + 1
+        except:
+            # Om det är tomt
+            new_id = 1
+
         print("New ID: ", new_id)
         
         name = input("Name of the product: ")
@@ -39,14 +45,23 @@ class Product:
         add_to_dictionary(new_id, name, desc, price, quantity)
     
     def remove_item(self, product_list, current_selected_index):
+        if not product_list:
+            return current_selected_index  # Om listan är tom, returnera det nuvarande indexet
+
         product = product_list[current_selected_index]
         product_list.remove(product)
-        print(f"Produkten {product['id']} har tagits bort.")
+        
+        # Om vi tagit bort den sista produkten, justera indexet
+        if current_selected_index >= len(product_list):
+            current_selected_index = len(product_list) - 1
+        
+        
+        return current_selected_index        
     
     def edit_item(self, products, current_selected_index):
         product = products[current_selected_index] 
         
-        print(f"Redigerar produkt: {product['name']}")
+        print(f"\nRedigerar produkt: {product['name']}")
 
         name = input("Namn på produkten: ")
         desc = input("Beskrivning på produkten: ")
@@ -72,10 +87,21 @@ class Product:
 
     def check_inventory(self, current_selected_index):
         os.system("cls")
+        
+        # Om listan är tom, visa ett meddelande och avsluta funktionen
+        if not products:
+            print("Inga produkter att visa.")
+            return
+
         print("""
 =========================================================================================================
 | ID  | Name                   | Description                                    | Price      | Quantity |
 =========================================================================================================""")
+        
+        # Se till att current_selected_index inte är utanför listans intervall
+        if current_selected_index >= len(products):
+            current_selected_index = len(products) - 1
+        
         # Loopar igenom produkterna
         for product in products:
             # Hanterar längden på produkterna så att de inte blir för långa
@@ -89,7 +115,8 @@ class Product:
                 print(f"| {str(product['id'])[:4]:4}| {product_name:23}| {product_desc:46} | {str(product['price'])[:10]:10} | {str(product['quantity'])[:8]:8} |")
 
         print("""=========================================================================================================
-\nAlternativ: [L] Lägg till | [Enter] för att välja | [Q] Avsluta""")
+    \nAlternativ: [L] Lägg till | [Enter] för att välja | [Q] Avsluta""")
+
 
     def import_items(self):
         # Öppna filen och importera items
@@ -158,10 +185,11 @@ def on_press(key):
     product.check_inventory(current_selected_index)
 
 
+
 def handle_enter_key(current_selected_index, products):
-    print("""=========================================================================================================
-\nAlternativ: [T] Ta bort | [Ä] Ändra | [B] Gå tillbaka | [Q] Avsluta""")
-    print(f"{products[current_selected_index]} is selected")
+    os.system("cls")
+    print("""\nAlternativ: [T] Ta bort | [Ä] Ändra | [B] Gå tillbaka | [Q] Avsluta""")
+    print(f"Produkten: \"{products[current_selected_index]["name"]}\" är nu vald")
     while True:
         key_pressed = getwch().upper()
 
@@ -192,5 +220,3 @@ product.check_inventory(current_selected_index)
 listener = keyboard.Listener(on_press=on_press)
 listener.start()
 listener.join()
-
-    # actions(product, products)
