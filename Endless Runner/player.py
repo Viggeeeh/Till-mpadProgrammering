@@ -1,3 +1,11 @@
+'''
+player.py: Här är allt med spelaren och dess funktioner
+
+__author__  = "Viggo Öfors"
+__version__ = "1.0.0"
+__email__   = "viggo.ofors@elev.ga.ntig.se"
+'''
+
 from turtle import Turtle
 
 class Player(Turtle):
